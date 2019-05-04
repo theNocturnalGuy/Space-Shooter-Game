@@ -1,0 +1,30 @@
+body, html, *
+{
+	margin: 0;
+	padding: 0;
+}
+body, html
+{
+	overflow: hidden;
+	background-color: black;
+}
+#gameArea
+{
+	border: 5px solid #63f000;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+.score-board
+{
+	font-size: 40px;
+	font-family: Britannic Bold;
+	position: absolute;
+	top: 50px;
+	left: 30px;
+	letter-spacing: 2px;
+	color: #00f350e6;
+	text-shadow: 2.3px 1px 1px #ff53eb;
+
+}
