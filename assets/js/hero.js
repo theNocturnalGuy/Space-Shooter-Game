@@ -28,9 +28,9 @@ let hero = (function() {
 		this.bullets = [];
 	}
 
-	Bullet.prototype.init = function(bullet) {
+	Bullet.prototype._init = function(bullet) {
 		bullet.x = ship.x;
-		bullet.y = ship.y-10;
+		bullet.y = ship.y - 10;
 		bullet.vx = 0;
 		bullet.vy = -12;
 		bullet.hit = false;
@@ -40,7 +40,7 @@ let hero = (function() {
 	Bullet.prototype.update = function() {
 		this.bullets.forEach(bullet => {
 			bullet.y += bullet.vy;
-		    if (bullet.y < 0) this.init(bullet);
+		    if (bullet.y < 0) this._init(bullet);
 		});
 	}
 
@@ -52,6 +52,7 @@ let hero = (function() {
 		    ctx.arc(bullet.x, bullet.y - 4, bullet.radius, 0, 2 * Math.PI, false);
 		    if (bullet.hit === true) ctx.fillStyle = 'transparent';
 		    else ctx.fillStyle = 'white';
+		    ctx.fill();
 		});
 	}
 
@@ -59,12 +60,12 @@ let hero = (function() {
 		let bullet;
 		if (this.bullets.length < N_HERO_BULLETS_PER_TRIGGER) {
 			bullet = {};
-			this.init(bullet);
+			this._init(bullet);
 			this.bullets.push(bullet);
 		}
 	}
 
-	let bullet = new Bullet();
+	let blt = new Bullet();
 
 	return {
 		ship: {
@@ -73,15 +74,15 @@ let hero = (function() {
 			draw: draw
 		},
 		bullet: {
+			bulletQ: blt.bullets,
 			emit: function() {
-				setInterval(bullet.add, 100);
+				setInterval(blt.add.bind(blt), 100);
 			},
 			propagate: function() {
-				bullet.update();
-				bullet.draw();
+				blt.update();
+				blt.draw();
 			}
 		}
 	};
 })();
-
 

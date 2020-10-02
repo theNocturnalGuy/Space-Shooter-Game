@@ -37,8 +37,10 @@ let explosion = (function() {
         gravity: 0.0, 	// Gravity while splinter fall
         duration: 8, 	// Explosion duration	
         colors: [ 		// Colors array
-	        'lightblue',
-	        'blue'
+	        'yellow',
+            'orange',
+            'white',
+            'red'
     	]
     };
  
@@ -81,6 +83,11 @@ let explosion = (function() {
         }
     }
 
+    const _softReset = function() {
+        splinters = [];
+        counter = 0;
+    }
+
     const explode = function(x, y) {
         let frame = window.requestAnimationFrame(function() {
         	explode(x, y)
@@ -92,17 +99,15 @@ let explosion = (function() {
             _add(x, y);
             _update(x, y);
             _draw();
-        } else window.cancelAnimationFrame(frame);
-        console.log(counter, x, y);
+        } else {
+            window.cancelAnimationFrame(frame);
+            _softReset();
+        }
     }
 
     return {
-    	explode: (x, y) => {
+    	explode: function(x, y) {
     		explode(x, y);
     	}
     };
 })();
-
-// explosion.explode(window.innerWidth / 3, window.innerHeight / 2);
-
-
